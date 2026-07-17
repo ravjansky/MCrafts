@@ -22,6 +22,16 @@ const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.addEventListener("DOMContentLoaded", () => {
   if (!REDUCED) document.body.classList.add("is-loading");
 
+  initHeroStates();
+  lockScroll(true);
+  runLoader({
+    onHeroMoment: heroIntro,
+    onComplete: () => {
+      lockScroll(false);
+      ScrollTrigger.refresh();
+    },
+  });
+
   document.fonts.ready.then(() => {
     initAtmosphere(REDUCED);
     initScroll(REDUCED);
@@ -34,18 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    initHeroStates();
     initHeroScroll();
     initSections(REDUCED);
     initField(REDUCED);
-
-    lockScroll(true);
-    runLoader({
-      onHeroMoment: heroIntro,
-      onComplete: () => {
-        lockScroll(false);
-        ScrollTrigger.refresh();
-      },
-    });
   });
 });

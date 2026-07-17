@@ -15,10 +15,9 @@ export function runLoader({ onHeroMoment, onComplete }) {
   const heroTile = document.querySelector(".intro-tile--hero");
   const heroMask = document.querySelector(".hero-figure .frame-mask");
 
-  // ── tile geometry — every transform is relative to the tile's centre ──
   gsap.set(layer, { visibility: "visible" });
 
-  const tileW = tiles[0].offsetWidth;
+  const tileW = Math.max(tiles[0].offsetWidth || 0, 1);
   const gap = (window.innerWidth * GAP_VW) / 100;
   const rowW = tileW * 5 + gap * 4;
   const centeredX = (i) => i * (tileW + gap) + tileW / 2 - rowW / 2;
